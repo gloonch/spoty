@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 # TODO
 
@@ -25,6 +26,9 @@ class Spot(models.Model):
         managed = False
         db_table = 'spot'
 
+    def __str__(self):
+        return "{} {},{}".format(self.user.name, self.latitude, self.longitude)
+
 
 class User(models.Model):
     name = models.TextField()
@@ -38,3 +42,5 @@ class User(models.Model):
         managed = False
         db_table = 'user'
 
+    def __str__(self):
+        return self.name
