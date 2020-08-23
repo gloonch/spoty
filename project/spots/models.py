@@ -3,7 +3,7 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    name = models.TextField()
+    name = models.TextField(blank=True, null=True)
     email = models.TextField(unique=True)
     token = models.TextField(unique=True)
     created_at = models.DateField(blank=True, null=True, auto_created=True, auto_now=True)
