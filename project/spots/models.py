@@ -11,9 +11,9 @@ class User(models.Model):
     # spots = models.ForeignKey('spot', models.DO_NOTHING, null=True, db_column='spots', related_name='+')
     # followings = models.ForeignKey('self', models.DO_NOTHING, null=True, db_column='followings', related_name='+')
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'user'
+    class Meta:
+        managed = False
+        db_table = 'user'
 
     def __str__(self):
         return self.name
@@ -27,15 +27,14 @@ class Spot(models.Model):
     dislikes = models.IntegerField(null=True, default=0)
     comments = models.IntegerField(null=True, default=0)
 
-    # user = models.ForeignKey('User', models.DO_NOTHING, db_column='user', related_name='+')
+    user = models.ForeignKey('User', models.DO_NOTHING, db_column='user', related_name='+')
 
-    # class Meta:
-    #     managed = False
-    #     db_table = 'spot'
+    class Meta:
+        managed = False
+        db_table = 'spot'
 
     def __str__(self):
-        return "{},{}".format(self.latitude, self.longitude)
-        # return "{} {},{}".format(self.user.name, self.latitude, self.longitude)
+        return "{} {},{}".format(self.user.name, self.latitude, self.longitude)
 
 # class SavedSpot(models.Model):
 #     spots = models.ForeignKey('Spot', models.DO_NOTHING, db_column='spots', related_name='+')
