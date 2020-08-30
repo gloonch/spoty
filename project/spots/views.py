@@ -52,6 +52,34 @@ def sign_up(request):
 
 
 @csrf_exempt
+def sign_in(request):
+    email = request.POST.get('email')
+    password = request.POST.get('password')
+    if email == "" and password == "":
+        return JsonResponse({
+            'status': 400,
+        })
+    else:
+        try:
+            user = User.objects.get(email=email)
+            if password == user.password:
+                return JsonResponse({
+                    'status', 200,
+                })
+            if not password == user.password:
+                return JsonResponse({
+                    'status', 404,
+                })
+        except Exception as err:
+            return JsonResponse(
+                {'status': 500,
+                 'error': err.__str__(),
+                 },
+                safe=False
+            )
+
+
+@csrf_exempt
 def add_spot(request):
     user = request.POST.get('user')
     lat = request.POST.get('latitude')
