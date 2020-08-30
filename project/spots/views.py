@@ -102,3 +102,23 @@ def add_spot(request):
                 'result': 500,
                 'error': err.__str__(),
             })
+
+
+@csrf_exempt
+def delete_spot(request):
+    spot_id = request.POST.get('id')
+    if spot_id == "":
+        return JsonResponse({
+            'status': 400,
+        })
+    else:
+        try:
+            Spot.objects.delete(pk=spot_id)
+            return JsonResponse({
+                'status': 200,
+            })
+        except Exception as error:
+            return JsonResponse({
+                'status': 500,
+                'result': error.__str__(),
+            })
