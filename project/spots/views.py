@@ -7,12 +7,20 @@ import uuid
 
 # Create your views here.
 @csrf_exempt
-def add_user(request):
+def sign_up(request):
     name = request.POST.get('name')
     email = request.POST.get('email')
-    if name == "" and email == "":
+    pass1 = request.POST.get('password')
+    pass2 = request.POST.get('password_repeat')
+
+    if name == "" and email == "" and pass1 == "" and pass2 == "":
         return JsonResponse({
             'status': 400,
+        })
+    if not pass2 == pass1:
+        return JsonResponse({
+            'status': 500,
+            'result': 'Passwords are not the same'
         })
     else:
         # checks again if phone_number does not exits then try ...
@@ -21,6 +29,7 @@ def add_user(request):
                 generated_token = uuid.uuid1().hex
                 user = User(name=name,
                             email=email,
+                            password=pass1,
                             token=generated_token)
                 user.save()
                 return JsonResponse(

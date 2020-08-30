@@ -5,6 +5,7 @@ from django.db import models
 class User(models.Model):
     name = models.TextField(blank=True, null=True)
     email = models.TextField(unique=True)
+    password = models.TextField(null=False)
     token = models.TextField(unique=True)
     created_at = models.DateField(blank=True, null=True, auto_created=True, auto_now=True)
 
