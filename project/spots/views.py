@@ -113,7 +113,7 @@ def delete_spot(request):
         })
     else:
         try:
-            Spot.objects.delete(pk=spot_id)
+            Spot.objects.filter(pk=spot_id).delete()
             return JsonResponse({
                 'status': 200,
             })
